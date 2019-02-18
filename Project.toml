@@ -4,4 +4,6 @@ authors = ["Devin Kilminster <devin@27720.net>"]
 version = "0.1.0"
 
 [deps]
+Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
+Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 StringDistances = "88034a9c-02f8-509d-84a9-84ec65e18404"
