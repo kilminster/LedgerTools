@@ -6,4 +6,5 @@ version = "0.1.0"
 [deps]
 Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
 Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+SHA = "ea8e919c-243c-51af-8825-aaa63cd721ce"
 StringDistances = "88034a9c-02f8-509d-84a9-84ec65e18404"

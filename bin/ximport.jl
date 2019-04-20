@@ -17,6 +17,8 @@ function main()
                 XImporters.asb(newtransactions,popfirst!(ARGS))
             elseif x=="-ofx"
                 XImporters.ofx(newtransactions,popfirst!(ARGS))
+            elseif x=="-nab"
+                XImporters.nab(newtransactions,popfirst!(ARGS))
             else
                 error("Unknown option: ",x)
             end

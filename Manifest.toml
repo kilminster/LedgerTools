@@ -9,9 +9,9 @@ uuid = "ade2ca70-3891-5945-98fb-dc099432e06a"
 
 [[Distances]]
 deps = ["LinearAlgebra", "Printf", "Random", "Statistics", "Test"]
-git-tree-sha1 = "0e37d8a95bafbeb9c800ef27ab6f443d29e17610"
+git-tree-sha1 = "a135c7c062023051953141da8437ed74f89d767a"
 uuid = "b4f34e82-e78d-54a5-968a-f98e89d6e8f7"
-version = "0.7.4"
+version = "0.8.0"
 
 [[Distributed]]
 deps = ["Random", "Serialization", "Sockets"]
@@ -48,6 +48,9 @@ uuid = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 [[Random]]
 deps = ["Serialization"]
 uuid = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+
+[[SHA]]
+uuid = "ea8e919c-243c-51af-8825-aaa63cd721ce"
 
 [[Serialization]]
 uuid = "9e88b42a-f829-5b0c-bbe9-9e923198166b"
