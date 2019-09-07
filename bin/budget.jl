@@ -67,32 +67,35 @@ function main()
     openingamount=0.0
     outflows=Dict()
 
-     for x in map(strip,open(readlines,cmd))
+    for x in map(strip,open(readlines,cmd))
         s=split(x,",")
-        dt=DateTime(parse(Int,s[1][2:5]),
-                    parse(Int,s[1][7:8]),
-                    1)
-        code=s[2][2:end-1]
-        if code=="income"
-            dt=dt+Dates.Month(1)
-        end
-        amount=parse(Float64,s[6][2:end-1])
-        if dt<SHEETS[1][1]
-            openingamount=openingamount+amount
-        else
-            if !haskey(CODE2CATEGORY,code)
-                println("Warning, don't know what category to use for code: $code")
-                println("Transaction: $x")
-                CODE2CATEGORY[code]="*Income*"
+
+        if s[5][2:end-1]=="\$"
+            dt=DateTime(parse(Int,s[1][2:5]),
+                        parse(Int,s[1][7:8]),
+                        1)
+            code=s[2][2:end-1]
+            if code=="income"
+                dt=dt+Dates.Month(1)
             end
-            category=CODE2CATEGORY[code]
-            if !haskey(outflows,dt)
-                outflows[dt]=Dict()
+            amount=parse(Float64,s[6][2:end-1])
+            if dt<SHEETS[1][1]
+                openingamount=openingamount+amount
+            else
+                if !haskey(CODE2CATEGORY,code)
+                    println("Warning, don't know what category to use for code: $code")
+                    println("Transaction: $x")
+                    CODE2CATEGORY[code]="*Income*"
+                end
+                category=CODE2CATEGORY[code]
+                if !haskey(outflows,dt)
+                    outflows[dt]=Dict()
+                end
+                if !haskey(outflows[dt],category)
+                    outflows[dt][category]=0.0
+                end
+                outflows[dt][category]-=amount
             end
-            if !haskey(outflows[dt],category)
-                outflows[dt][category]=0.0
-            end
-            outflows[dt][category]-=amount
         end
     end
     

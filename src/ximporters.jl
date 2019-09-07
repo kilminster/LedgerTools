@@ -37,21 +37,24 @@ function asb(newtransactions,fname)
 end
 
 function nab(newtransactions,fname)
+    removeexcessspaces(x)=join(split(x),' ')
+    
     re=r"(.*),([+|-]?[\d\.]+),(.*),(.*),(.*),(.*),[+|-]?[\d\.]+"
     for x in open(readlines,fname)
         m=match(re,strip(x))
         if m!=nothing
-            dt=Date(m.captures[1],"d u y")+Year(2000)
-            id=bytes2hex(sha256(m.captures[1]*m.captures[3]*m.captures[4]*m.captures[5]*m.captures[6]))[1:16]
-            amount=m.captures[2]
+            captures=removeexcessspaces.(m.captures)
+            dt=Date(captures[1],"d u y")+Year(2000)
+            id=bytes2hex(sha256(join(captures[1:6],'-')))[1:16]
+            amount=captures[2]
             if amount[1]=='-'
                 amount=amount[2:end]
             else
                 amount="-"*amount
             end
-            matchinfo=filterpipe(m.captures[2]*"-"*m.captures[4]*"-"*m.captures[5]*"-"*m.captures[6])
+            matchinfo=filterpipe(join(captures[2:6],'-'))
             t=Transaction(@sprintf("%04d%02d%02d",year(dt),month(dt),day(dt))*id,
-                          "$(year(dt))/$(month(dt))/$(day(dt))",
+                          @sprintf("%04d/%02d/%02d",year(dt),month(dt),day(dt)),
                           "A\$"*amount,
                           matchinfo,
                           String[])
