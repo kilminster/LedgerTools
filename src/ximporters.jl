@@ -15,7 +15,7 @@ function filterpipe(x::String)
     return String(r)
 end
 
-function asb(newtransactions,fname)
+function asb(newtransactions,fname,currency)
     re=r"(\d\d\d\d/\d\d/\d\d),(\d*),(.*),([+|-]?[\d\.]+)"
     for x in open(readlines,fname)
         m=match(re,strip(x))
@@ -28,7 +28,7 @@ function asb(newtransactions,fname)
             end
             t=Transaction(m.captures[2],
                           m.captures[1],
-                          "\$"*amount,
+                          "$(currency)"*amount,
                           filterpipe(m.captures[3]*"-"*m.captures[4]),
                           String[])
             push!(newtransactions,t)
@@ -36,7 +36,7 @@ function asb(newtransactions,fname)
     end
 end
 
-function nab(newtransactions,fname)
+function nab(newtransactions,fname,currency)
     removeexcessspaces(x)=join(split(x),' ')
     
     re=r"(.*),([+|-]?[\d\.]+),(.*),(.*),(.*),(.*),[+|-]?[\d\.]+"
@@ -55,7 +55,7 @@ function nab(newtransactions,fname)
             matchinfo=filterpipe(join(captures[2:6],'-'))
             t=Transaction(@sprintf("%04d%02d%02d",year(dt),month(dt),day(dt))*id,
                           @sprintf("%04d/%02d/%02d",year(dt),month(dt),day(dt)),
-                          "A\$"*amount,
+                          "$(currency)"*amount,
                           matchinfo,
                           String[])
             push!(newtransactions,t)
@@ -63,7 +63,7 @@ function nab(newtransactions,fname)
     end
 end
 
-function ofx(newtransactions,fname)
+function ofx(newtransactions,fname,currency)
     s=String(open(read,fname))
     while true
         i=first(something(findfirst("<STMTTRN>",s),0))
@@ -91,7 +91,7 @@ function ofx(newtransactions,fname)
         date=date[1:4]*"/"*date[5:6]*"/"*date[7:8]
         t=Transaction(d["FITID"],
                       date,
-                      "\$"*amount,
+                      "$(currency)"*amount,
                       filterpipe(join([d[k] for k in sort(collect(keys(d)))],'-')),
                       String[])
         push!(newtransactions,t)
