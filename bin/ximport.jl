@@ -8,20 +8,23 @@ import LedgerTools.XImportModel
 
 function main()
     ledgerfile=nothing
-    newtransactions=Transaction[]
+    currenttransactions=Transaction[]
     currency="\$"
+    markcurrenttransactions=false
     
     while length(ARGS)>0
         x=popfirst!(ARGS)
         if x[1]=='-'
             if x=="-asb"
-                XImporters.asb(newtransactions,popfirst!(ARGS),currency)
+                XImporters.asb(currenttransactions,popfirst!(ARGS),currency)
             elseif x=="-ofx"
-                XImporters.ofx(newtransactions,popfirst!(ARGS),currency)
+                XImporters.ofx(currenttransactions,popfirst!(ARGS),currency)
             elseif x=="-nab"
-                XImporters.nab(newtransactions,popfirst!(ARGS),currency)
+                XImporters.nab(currenttransactions,popfirst!(ARGS),currency)
             elseif x=="-currency"
                 currency=popfirst!(ARGS)
+            elseif x=="-mark"
+                markcurrenttransactions=true
             else
                 error("Unknown option: ",x)
             end
@@ -34,11 +37,11 @@ function main()
         end
     end
 
-    sort!(newtransactions,by=t->t.date)
+    sort!(currenttransactions,by=t->t.date)
 
     ledgercontents,transactions=parseledgerfile(ledgerfile)
 
-    for t in newtransactions
+    for t in currenttransactions
         if !haskey(transactions,t.id)
             push!(ledgercontents,t)
             transactions[t.id]=t
@@ -53,7 +56,11 @@ function main()
         end
     end
 
-    writeledgerfile(ledgerfile,ledgercontents)
+    if markcurrenttransactions
+        writeledgerfile(ledgerfile,ledgercontents,[t.id for t in currenttransactions])
+    else
+        writeledgerfile(ledgerfile,ledgercontents,[])
+    end
 end
 
 main()
