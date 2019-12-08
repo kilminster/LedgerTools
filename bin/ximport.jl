@@ -9,16 +9,19 @@ import LedgerTools.XImportModel
 function main()
     ledgerfile=nothing
     newtransactions=Transaction[]
-
+    currency="\$"
+    
     while length(ARGS)>0
         x=popfirst!(ARGS)
         if x[1]=='-'
             if x=="-asb"
-                XImporters.asb(newtransactions,popfirst!(ARGS))
+                XImporters.asb(newtransactions,popfirst!(ARGS),currency)
             elseif x=="-ofx"
-                XImporters.ofx(newtransactions,popfirst!(ARGS))
+                XImporters.ofx(newtransactions,popfirst!(ARGS),currency)
             elseif x=="-nab"
-                XImporters.nab(newtransactions,popfirst!(ARGS))
+                XImporters.nab(newtransactions,popfirst!(ARGS),currency)
+            elseif x=="-currency"
+                currency=popfirst!(ARGS)
             else
                 error("Unknown option: ",x)
             end
