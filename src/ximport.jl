@@ -13,7 +13,18 @@ end
 function parseledgerfile(fname)
     ledgercontents=[]
     transactions=Dict{String,Transaction}()
-    ls=map(rstrip,open(readlines,fname))
+
+    function cleanupline(x)
+        x=rstrip(x)
+        if length(x)>0
+            if x[1]=='*'
+                return x[2:end]
+            end
+        end
+        return x
+    end
+    
+    ls=map(cleanupline,open(readlines,fname))
 
     function noneleft()
         while length(ls)>0
@@ -32,6 +43,9 @@ function parseledgerfile(fname)
     end
     l=popfirst!(ls)
     if length(l)>0
+        if l[1]=='*'
+            l=l[2:end]
+        end
         if l[1]==';'
             l=l[2:end]
             @goto START
@@ -86,9 +100,12 @@ function parseledgerfile(fname)
 end
 
 
-function writeledgerfile(fname,contents)
+function writeledgerfile(fname,contents,transactionidstomark)
     function tostring(t::Transaction)
         r="|$(t.id)|$(t.date)|$(t.amount)|$(t.matchinfo)\n"
+        if t.id in transactionidstomark
+            r="*"*r
+        end
         for x in t.text
             r=r*x*"\n"
         end
