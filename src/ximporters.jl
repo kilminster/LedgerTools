@@ -44,7 +44,6 @@ function nab(newtransactions,fname,currency)
         if m!=nothing
             captures=removeexcessspaces.(m.captures)
             dt=Date(captures[1],"d u y")+Year(2000)
-            println(dt)
             amount=captures[2]
             if amount[1]=='-'
                 amount=amount[2:end]
