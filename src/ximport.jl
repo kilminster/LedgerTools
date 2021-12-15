@@ -1,6 +1,6 @@
 module XImport
 
-export Transaction,parseledgerfile,writeledgerfile
+export Transaction,parseledgerfile,writeledgerfile,sortcontents
 
 mutable struct Transaction
     id::String
@@ -97,6 +97,36 @@ function parseledgerfile(fname)
     
     @label DONE
     return ledgercontents,transactions
+end
+
+function sortcontents(contents)
+
+    function sortkey(transaction::Transaction)
+        a=""
+        for c in transaction.amount
+            if c in "-0123456789."
+                a=a*c
+            end
+        end
+        return (transaction.date,parse(Float64,a))
+    end
+
+    r=[]
+    while length(contents)>0
+        if contents[1] isa Transaction
+            tosort=Transaction[]
+            while (length(contents)>0)&&(contents[1] isa Transaction)
+                push!(tosort,popfirst!(contents))
+            end
+            sort!(tosort,by=sortkey)
+            for x in tosort
+                push!(r,x)
+            end
+        else
+            push!(r,popfirst!(contents))
+        end
+    end
+    return r
 end
 
 

@@ -11,6 +11,7 @@ function main()
     currenttransactions=Transaction[]
     currency="\$"
     markcurrenttransactions=false
+    sorttransactions=false
     
     while length(ARGS)>0
         x=popfirst!(ARGS)
@@ -25,6 +26,8 @@ function main()
                 currency=popfirst!(ARGS)
             elseif x=="-mark"
                 markcurrenttransactions=true
+            elseif x=="-sort"
+                sorttransactions=true
             else
                 error("Unknown option: ",x)
             end
@@ -54,6 +57,10 @@ function main()
         if length(t.text)==0
             XImportModel.guess(model,t)
         end
+    end
+
+    if sorttransactions
+        ledgercontents=sortcontents(ledgercontents)
     end
 
     if markcurrenttransactions

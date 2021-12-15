@@ -1,80 +1,72 @@
 # This file is machine-generated - editing it directly is not advised
 
-[[Base64]]
-uuid = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
+julia_version = "1.7.0"
+manifest_format = "2.0"
 
-[[Dates]]
+[[deps.Artifacts]]
+uuid = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
+
+[[deps.CompilerSupportLibraries_jll]]
+deps = ["Artifacts", "Libdl"]
+uuid = "e66e0078-7015-5450-92f7-15fbd957f2ae"
+
+[[deps.Dates]]
 deps = ["Printf"]
 uuid = "ade2ca70-3891-5945-98fb-dc099432e06a"
 
-[[Distances]]
-deps = ["LinearAlgebra", "Printf", "Random", "Statistics", "Test"]
-git-tree-sha1 = "a135c7c062023051953141da8437ed74f89d767a"
+[[deps.Distances]]
+deps = ["LinearAlgebra", "SparseArrays", "Statistics", "StatsAPI"]
+git-tree-sha1 = "3258d0659f812acde79e8a74b11f17ac06d0ca04"
 uuid = "b4f34e82-e78d-54a5-968a-f98e89d6e8f7"
-version = "0.8.0"
+version = "0.10.7"
 
-[[Distributed]]
-deps = ["Random", "Serialization", "Sockets"]
-uuid = "8ba89e20-285c-5b6f-9357-94700520ee1b"
-
-[[InteractiveUtils]]
-deps = ["Markdown"]
-uuid = "b77e0a4c-d291-57a0-90e8-8db25a27a240"
-
-[[IterTools]]
-deps = ["SparseArrays", "Test"]
-git-tree-sha1 = "79246285c43602384e6f1943b3554042a3712056"
-uuid = "c8e1da08-722c-5040-9ed9-7db0dc04731e"
-version = "1.1.1"
-
-[[Libdl]]
+[[deps.Libdl]]
 uuid = "8f399da3-3557-5675-b5ff-fb832c97cbdb"
 
-[[LinearAlgebra]]
-deps = ["Libdl"]
+[[deps.LinearAlgebra]]
+deps = ["Libdl", "libblastrampoline_jll"]
 uuid = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 
-[[Logging]]
-uuid = "56ddb016-857b-54e1-b83d-db4d58db5568"
+[[deps.OpenBLAS_jll]]
+deps = ["Artifacts", "CompilerSupportLibraries_jll", "Libdl"]
+uuid = "4536629a-c528-5b80-bd46-f80d51c5b363"
 
-[[Markdown]]
-deps = ["Base64"]
-uuid = "d6f4376e-aef5-505a-96c1-9c027394607a"
-
-[[Printf]]
+[[deps.Printf]]
 deps = ["Unicode"]
 uuid = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 
-[[Random]]
-deps = ["Serialization"]
+[[deps.Random]]
+deps = ["SHA", "Serialization"]
 uuid = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 
-[[SHA]]
+[[deps.SHA]]
 uuid = "ea8e919c-243c-51af-8825-aaa63cd721ce"
 
-[[Serialization]]
+[[deps.Serialization]]
 uuid = "9e88b42a-f829-5b0c-bbe9-9e923198166b"
 
-[[Sockets]]
-uuid = "6462fe0b-24de-5631-8697-dd941f90decc"
-
-[[SparseArrays]]
+[[deps.SparseArrays]]
 deps = ["LinearAlgebra", "Random"]
 uuid = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
 
-[[Statistics]]
+[[deps.Statistics]]
 deps = ["LinearAlgebra", "SparseArrays"]
 uuid = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 
-[[StringDistances]]
-deps = ["Distances", "IterTools", "Test"]
-git-tree-sha1 = "2d9e7e22e842da878744331de6895c504124021d"
+[[deps.StatsAPI]]
+git-tree-sha1 = "0f2aa8e32d511f758a2ce49208181f7733a0936a"
+uuid = "82ae8749-77ed-4fe6-ae5f-f523153014b0"
+version = "1.1.0"
+
+[[deps.StringDistances]]
+deps = ["Distances", "StatsAPI"]
+git-tree-sha1 = "ceeef74797d961aee825aabf71446d6aba898acb"
 uuid = "88034a9c-02f8-509d-84a9-84ec65e18404"
-version = "0.3.1"
+version = "0.11.2"
 
-[[Test]]
-deps = ["Distributed", "InteractiveUtils", "Logging", "Random"]
-uuid = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
-
-[[Unicode]]
+[[deps.Unicode]]
 uuid = "4ec0a83e-493e-50e2-b9ac-8f72acf5a8f5"
+
+[[deps.libblastrampoline_jll]]
+deps = ["Artifacts", "Libdl", "OpenBLAS_jll"]
+uuid = "8e850b90-86db-534c-a0d3-1478176c7d93"
