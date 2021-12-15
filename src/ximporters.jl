@@ -42,7 +42,6 @@ function nab(newtransactions,fname,currency)
     for x in open(readlines,fname)[2:end]
         m=match(re,strip(x))
         if m!=nothing
-            println(m)
             captures=removeexcessspaces.(m.captures)
             dt=Date(captures[1],"d u y")+Year(2000)
             println(dt)
@@ -52,7 +51,6 @@ function nab(newtransactions,fname,currency)
             else
                 amount="-"*amount
             end
-            println(amount)
             id=bytes2hex(sha256(join(captures,'-')))[1:16]
             matchinfo=filterpipe(join(captures[2:end],'-'))
             t=Transaction(@sprintf("%04d%02d%02d",year(dt),month(dt),day(dt))*id,
