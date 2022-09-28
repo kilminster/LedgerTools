@@ -40,7 +40,11 @@ function nab(newtransactions,fname,currency)
     removeexcessspaces(x)=join(split(x),' ')
     re=r"(.*?),(.*?),.*?,.*?,(.*?),(.*?),.*?,(.*)"
     for x in open(readlines,fname)[2:end]
-        m=match(re,strip(x))
+        x1=x
+        if length(filter(z->z==',',x1))==6
+            x1=x1*","
+        end
+        m=match(re,strip(x1))
         if m!=nothing
             captures=removeexcessspaces.(m.captures)
             dt=Date(captures[1],"d u y")+Year(2000)
